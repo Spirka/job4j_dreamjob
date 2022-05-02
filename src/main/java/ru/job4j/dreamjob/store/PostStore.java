@@ -3,7 +3,6 @@ package ru.job4j.dreamjob.store;
 import ru.job4j.dreamjob.model.Post;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -36,7 +35,7 @@ public class PostStore {
         return posts.values();
     }
 
-    public void create(Post post) {
+    public void add(Post post) {
         post.setId(ids.incrementAndGet());
         post.setCreated(LocalDateTime.now());
         this.posts.put(post.getId(), post);
