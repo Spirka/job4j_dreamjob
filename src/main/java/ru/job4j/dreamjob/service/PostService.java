@@ -1,5 +1,6 @@
 package ru.job4j.dreamjob.service;
 
+import org.springframework.stereotype.Service;
 import ru.job4j.dreamjob.model.Post;
 import ru.job4j.dreamjob.store.PostStore;
 
@@ -11,14 +12,13 @@ import java.util.List;
  * @author Kseniya Dergunova
  * @since 02.05.2022
  */
+@Service
 public class PostService {
 
-    private static final PostService INST = new PostService();
+    private final PostStore postStore;
 
-    PostStore postStore = PostStore.instOf();
-
-    public static PostService instOf() {
-        return INST;
+    public PostService(PostStore postStore) {
+        this.postStore = postStore;
     }
 
     public List<Post> findAll() {

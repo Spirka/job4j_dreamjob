@@ -15,28 +15,26 @@ import java.util.List;
 @Service
 public class CandidateService {
 
-    private static final CandidateService INST = new CandidateService();
+    private final CandidateStore candidateStore;
 
-    CandidateStore store = CandidateStore.instOf();
-
-    public static CandidateService instOf() {
-        return INST;
+    public CandidateService(CandidateStore candidateStore) {
+        this.candidateStore = candidateStore;
     }
 
     public List<Candidate> findAll() {
-        return store.findAll();
+        return candidateStore.findAll();
     }
 
     public Candidate findById(int id) {
-        return store.findById(id);
+        return candidateStore.findById(id);
     }
 
     public void create(Candidate candidate) {
-        store.add(candidate);
+        candidateStore.add(candidate);
     }
 
     public void update(Candidate candidate) {
-        store.update(candidate);
+        candidateStore.update(candidate);
     }
 
 }

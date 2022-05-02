@@ -17,7 +17,12 @@ import ru.job4j.dreamjob.service.PostService;
  */
 @Controller
 public class PostControl {
-    private final PostService postService = PostService.instOf();
+
+    private final PostService postService;
+
+    public PostControl(PostService postService) {
+        this.postService = postService;
+    }
 
     @GetMapping("/posts")
     public String posts(Model model) {

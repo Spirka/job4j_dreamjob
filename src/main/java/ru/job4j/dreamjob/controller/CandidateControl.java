@@ -18,7 +18,11 @@ import ru.job4j.dreamjob.service.CandidateService;
 @Controller
 public class CandidateControl {
 
-    private final CandidateStore store = CandidateStore.instOf();
+    private final CandidateService candidateService;
+
+    public CandidateControl(CandidateService candidateService) {
+        this.candidateService = candidateService;
+    }
 
     @GetMapping("/candidates")
     public String candidate(Model model) {
@@ -32,7 +36,7 @@ public class CandidateControl {
     }
 
     @PostMapping("/createCandidate")
-    public String createPost(@ModelAttribute Candidate candidate) {
+    public String createCandidate(@ModelAttribute Candidate candidate) {
         candidateService.create(candidate);
         return "redirect:/candidates";
     }
