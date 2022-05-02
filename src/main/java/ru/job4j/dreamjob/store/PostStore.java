@@ -9,6 +9,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Class PostStore
+ * Хранилище вакансий
  *
  * @author Kseniya Dergunova
  * @since 02.05.2022

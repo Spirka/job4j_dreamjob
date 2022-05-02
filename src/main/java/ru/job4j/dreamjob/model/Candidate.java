@@ -4,20 +4,19 @@ import java.time.Instant;
 import java.util.Objects;
 
 /**
- * Class Post
+ * Class Candidate
  *
  * @author Kseniya Dergunova
  * @since 02.05.2022
  */
-public class Post {
+public class Candidate {
 
     /**
      * Идентификатор
      */
     private int id;
-
     /**
-     * Название вакансии
+     * ФИО
      */
     private String name;
 
@@ -27,18 +26,18 @@ public class Post {
     private String description;
 
     /**
-     * Дата создания
+     * Дата рождения
      */
-    private Instant created;
+    private Instant dateOfBirth;
 
-    public Post() {
+    public Candidate() {
     }
 
-    public Post(int id, String name, String description, Instant created ) {
+    public Candidate(int id, String name, String description, Instant dateOfBirth) {
         this.id = id;
         this.name = name;
         this.description = description;
-        this.created = created;
+        this.dateOfBirth = dateOfBirth;
     }
 
     public int getId() {
@@ -65,20 +64,20 @@ public class Post {
         this.description = description;
     }
 
-    public Instant getCreated() {
-        return created;
+    public Instant getDateOfBirth() {
+        return dateOfBirth;
     }
 
-    public void setCreated(Instant created) {
-        this.created = created;
+    public void setDateOfBirth(Instant dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Post)) return false;
-        Post post = (Post) o;
-        return id == post.id;
+        if (!(o instanceof Candidate)) return false;
+        Candidate candidate = (Candidate) o;
+        return id == candidate.id;
     }
 
     @Override
@@ -88,11 +87,11 @@ public class Post {
 
     @Override
     public String toString() {
-        return "Post{" +
+        return "Candidate{" +
             "id=" + id +
             ", name='" + name + '\'' +
             ", description='" + description + '\'' +
-            ", created=" + created +
+            ", dateOfBirth=" + dateOfBirth +
             '}';
     }
 }
