@@ -49,4 +49,8 @@ public class PostStore {
     public void update(Post post) {
         posts.put(post.getId(), post);
     }
+
+    public void add(Post post) {
+        this.posts.putIfAbsent(post.getId(), post);
+    }
 }
