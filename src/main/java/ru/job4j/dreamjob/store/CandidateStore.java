@@ -1,9 +1,8 @@
 package ru.job4j.dreamjob.store;
 
 import ru.job4j.dreamjob.model.Candidate;
-import ru.job4j.dreamjob.model.Post;
 
-import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -22,9 +21,9 @@ public class CandidateStore {
     private final Map<Integer, Candidate> candidates = new ConcurrentHashMap<>();
 
     public CandidateStore() {
-        this.candidates.put(1, new Candidate(1, "Иванов Иван Иванович", "Описание", Instant.parse("1989-04-01T21:00:00Z")));
-        this.candidates.put(2, new Candidate(2, "Петров Петр Петрович", "Описание", Instant.parse("1978-04-01T21:00:00Z")));
-        this.candidates.put(3, new Candidate(3, "Иванова Мария Ивановна", "Описание", Instant.parse("1999-04-01T21:00:00Z")));
+        this.candidates.put(1, new Candidate(1, "Иванов Иван Иванович", "Описание", LocalDateTime.of(1980, 1, 29, 12, 0)));
+        this.candidates.put(2, new Candidate(2, "Петров Петр Петрович", "Описание", LocalDateTime.of(1989, 3, 15, 12, 0)));
+        this.candidates.put(3, new Candidate(3, "Иванова Мария Ивановна", "Описание", LocalDateTime.of(1999, 2, 23, 12, 0)));
     }
 
     public static CandidateStore instOf() {
@@ -33,5 +32,17 @@ public class CandidateStore {
 
     public Collection<Candidate> findAll() {
         return candidates.values();
+    }
+
+    public Candidate findById(int id) {
+        return candidates.get(id);
+    }
+
+    public void create(Candidate candidate) {
+        candidates.putIfAbsent(candidate.getId(), candidate);
+    }
+
+    public void update(Candidate candidate) {
+        candidates.put(candidate.getId(), candidate);
     }
 }
