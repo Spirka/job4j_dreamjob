@@ -14,7 +14,7 @@ import ru.job4j.dreamjob.store.CandidateStore;
 @Controller
 public class CandidateControl {
 
-    CandidateStore store = CandidateStore.instOf();
+    private final CandidateStore store = CandidateStore.instOf();
 
     @GetMapping("/candidates")
     public String posts(Model model) {
