@@ -2,6 +2,7 @@ package ru.job4j.dreamjob.model;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -11,7 +12,7 @@ import java.util.Objects;
  * @author Kseniya Dergunova
  * @since 02.05.2022
  */
-public class Post {
+public class Post implements Serializable {
 
     /**
      * Идентификатор
@@ -38,6 +39,8 @@ public class Post {
      */
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime created;
+
+    private City city;
 
     public Post() {
     }
@@ -94,6 +97,14 @@ public class Post {
         this.visible = visible;
     }
 
+    public City getCity() {
+        return city;
+    }
+
+    public void setCity(City city) {
+        this.city = city;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -115,6 +126,7 @@ public class Post {
             ", description='" + description + '\'' +
             ", created=" + created +
             ", visible=" + visible +
+            ", city=" + city +
             '}';
     }
 }
