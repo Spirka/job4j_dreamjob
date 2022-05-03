@@ -28,6 +28,11 @@ public class Candidate {
     private String description;
 
     /**
+     * Фотография
+     */
+    private byte[] photo;
+
+    /**
      * Дата рождения
      */
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
@@ -78,6 +83,14 @@ public class Candidate {
 
     public void setDateOfBirth(LocalDateTime dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
+    }
+
+    public byte[] getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(byte[] photo) {
+        this.photo = photo;
     }
 
     @Override
