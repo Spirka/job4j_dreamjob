@@ -29,6 +29,11 @@ public class Post {
     private String description;
 
     /**
+     * Видимость
+     */
+    private boolean visible;
+
+    /**
      * Дата создания
      */
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
@@ -81,6 +86,14 @@ public class Post {
         this.created = created;
     }
 
+    public boolean isVisible() {
+        return visible;
+    }
+
+    public void setVisible(boolean visible) {
+        this.visible = visible;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -101,6 +114,7 @@ public class Post {
             ", name='" + name + '\'' +
             ", description='" + description + '\'' +
             ", created=" + created +
+            ", visible=" + visible +
             '}';
     }
 }
