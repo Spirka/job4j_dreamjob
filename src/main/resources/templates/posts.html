@@ -45,6 +45,7 @@
                 <th scope="col">Имя</th>
                 <th scope="col">Описание</th>
                 <th scope="col">Дата создания</th>
+                <th scope="col">Город</th>
             </tr>
             </thead>
             <tbody>
@@ -60,9 +61,10 @@
                     </span>
                     <span th:if="${!post.visible}">
                         <i class="fa fa-square-o"></i>
-                    </span>
+                    </span> </td>
                 <td th:text="${post.description}"/>
                 <td th:text="${post.created}"/>
+                <td th:if="${post.city}" th:value="${post.city.id}" th:text="${post.city.name}"/>
             </tr>
             </tbody>
         </table>
