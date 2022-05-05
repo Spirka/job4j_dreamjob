@@ -4,7 +4,7 @@ import net.jcip.annotations.ThreadSafe;
 import org.springframework.stereotype.Service;
 import ru.job4j.dreamjob.model.City;
 import ru.job4j.dreamjob.model.Post;
-import ru.job4j.dreamjob.store.PostStore;
+import ru.job4j.dreamjob.store.PostDbStore;
 
 import java.util.List;
 
@@ -18,10 +18,10 @@ import java.util.List;
 @Service
 public class PostService {
 
-    private final PostStore postStore;
+    private final PostDbStore postStore;
     private final CityService cityService;
 
-    public PostService(PostStore postStore, CityService cityService) {
+    public PostService(PostDbStore postStore, CityService cityService) {
         this.postStore = postStore;
         this.cityService = cityService;
     }
@@ -47,8 +47,10 @@ public class PostService {
     }
 
     public void create(Post post) {
-        City city = cityService.findById(post.getCity().getId());
-        post.setCity(city);
+        if (post.getCity() != null) {
+            City city = cityService.findById(post.getCity().getId());
+            post.setCity(city);
+        }
         postStore.add(post);
     }
 
