@@ -14,6 +14,7 @@ import ru.job4j.dreamjob.model.Candidate;
 import ru.job4j.dreamjob.service.CandidateService;
 
 import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * Class CandidateControl
@@ -61,6 +62,12 @@ public class CandidateControl {
                                   @RequestParam("file") MultipartFile file) throws IOException {
         if (file != null && !file.isEmpty()) {
             candidate.setPhoto(file.getBytes());
+        } else {
+            try (InputStream is = getClass().getClassLoader().getResourceAsStream("pikachu.jpg")) {
+                if (is != null && is.available() > 0) {
+                    candidate.setPhoto(is.readAllBytes());
+                }
+            }
         }
         candidateService.update(candidate);
         return "redirect:/candidates";
