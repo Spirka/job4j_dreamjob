@@ -1,14 +1,13 @@
 package ru.job4j.dreamjob.store;
 
 import org.apache.commons.dbcp2.BasicDataSource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 import ru.job4j.dreamjob.model.City;
 import ru.job4j.dreamjob.model.Post;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Timestamp;
+import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +21,7 @@ import java.util.List;
 @Repository
 public class PostDbStore {
 
+    private static final Logger LOG = LoggerFactory.getLogger(PostDbStore.class);
     private final BasicDataSource pool;
 
     public PostDbStore(BasicDataSource pool) {
@@ -44,7 +44,7 @@ public class PostDbStore {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LOG.error(e.getMessage(), e);
         }
         return posts;
     }
@@ -65,7 +65,7 @@ public class PostDbStore {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LOG.error(e.getMessage(), e);
         }
         return post;
     }
@@ -81,7 +81,7 @@ public class PostDbStore {
             ps.setInt(5, post.getId());
             ps.execute();
         } catch (Exception e) {
-            e.printStackTrace();
+            LOG.error(e.getMessage(), e);
         }
     }
 
@@ -100,8 +100,19 @@ public class PostDbStore {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LOG.error(e.getMessage() + e);
         }
         return null;
+    }
+
+    public void clearTable() {
+        try (Connection connection = pool.getConnection()) {
+            PreparedStatement statement = connection.prepareStatement(
+                "delete from post"
+            );
+            statement.execute();
+        } catch (SQLException e) {
+            LOG.error(e.getMessage(), e);
+        }
     }
 }

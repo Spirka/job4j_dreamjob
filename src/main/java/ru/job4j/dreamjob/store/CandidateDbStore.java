@@ -1,13 +1,12 @@
 package ru.job4j.dreamjob.store;
 
 import org.apache.commons.dbcp2.BasicDataSource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 import ru.job4j.dreamjob.model.Candidate;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Timestamp;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +19,7 @@ import java.util.List;
 @Repository
 public class CandidateDbStore {
 
+    private static final Logger LOG = LoggerFactory.getLogger(CandidateDbStore.class);
     private final BasicDataSource pool;
 
     public CandidateDbStore(BasicDataSource pool) {
@@ -41,7 +41,7 @@ public class CandidateDbStore {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LOG.error(e.getMessage(), e);
         }
         return candidates;
     }
@@ -62,7 +62,7 @@ public class CandidateDbStore {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LOG.error(e.getMessage(), e);
         }
         return candidate;
     }
@@ -78,13 +78,14 @@ public class CandidateDbStore {
             ps.setInt(5, candidate.getId());
             ps.execute();
         } catch (Exception e) {
-            e.printStackTrace();
+            LOG.error(e.getMessage(), e);
         }
     }
 
     public Candidate findById(int id) {
+        String sql = "SELECT * FROM candidate WHERE id = ?";
         try (Connection cn = pool.getConnection();
-             PreparedStatement ps = cn.prepareStatement("SELECT * FROM candidate WHERE id = ?")) {
+             PreparedStatement ps = cn.prepareStatement(sql)) {
             ps.setInt(1, id);
             try (ResultSet rs = ps.executeQuery()){
                 if (rs.next()) {
@@ -96,8 +97,19 @@ public class CandidateDbStore {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LOG.error(e.getMessage(), e);
         }
         return null;
+    }
+
+    public void clearTable() {
+        try (Connection connection = pool.getConnection()) {
+            PreparedStatement statement = connection.prepareStatement(
+                "delete from candidate"
+            );
+            statement.execute();
+        } catch (SQLException e) {
+            LOG.error(e.getMessage(), e);
+        }
     }
 }
