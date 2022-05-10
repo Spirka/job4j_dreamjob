@@ -2,6 +2,8 @@ package ru.job4j.dreamjob.model;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.io.Serializable;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -11,7 +13,7 @@ import java.util.Objects;
  * @author Kseniya Dergunova
  * @since 02.05.2022
  */
-public class Candidate {
+public class Candidate implements Serializable {
 
     /**
      * Идентификатор
@@ -46,11 +48,12 @@ public class Candidate {
         this.name = name;
     }
 
-    public Candidate(int id, String name, String description, LocalDateTime dateOfBirth) {
+    public Candidate(int id, String name, String description, LocalDateTime dateOfBirth, byte[] photo) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.dateOfBirth = dateOfBirth;
+        this.photo = photo;
     }
 
     public int getId() {
