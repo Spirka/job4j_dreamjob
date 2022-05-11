@@ -1,3 +1,4 @@
+[![Build Status](https://app.travis-ci.com/Spirka/job4j_dreamjob.svg?branch=master)](https://app.travis-ci.com/Spirka/job4j_dreamjob)
 # job4j_dreamjob
 В этом блоке мы поговорим о создании веб приложений на языка Java.
 
