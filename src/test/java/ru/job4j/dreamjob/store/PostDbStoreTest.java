@@ -30,7 +30,7 @@ public class PostDbStoreTest {
     }
 
     @After
-    public void clearTable() throws SQLException {
+    public void clearTable() {
         store.clearTable();
     }
 
