@@ -46,4 +46,28 @@ public class UserDbStore {
         }
         return optionalUser;
     }
+
+    public Optional<User> findUserByEmailAndPwd(String email, String pwd) {
+        Optional<User> user = Optional.empty();
+        try (Connection cn = pool.getConnection();
+             PreparedStatement ps = cn.prepareStatement(
+                 "select * from users where email = ? and password = ?")
+        ) {
+            ps.setString(1, email);
+            ps.setString(2, pwd);
+            try (ResultSet it = ps.executeQuery()) {
+                if (it.next()) {
+                    user = Optional.of(
+                        new User(
+                            it.getInt("id"),
+                            it.getString("name"),
+                            it.getString("email"),
+                            it.getString("password")));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return user;
+    }
 }
