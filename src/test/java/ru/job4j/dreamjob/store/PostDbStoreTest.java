@@ -7,7 +7,6 @@ import ru.job4j.dreamjob.Main;
 import ru.job4j.dreamjob.model.City;
 import ru.job4j.dreamjob.model.Post;
 
-import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
 
